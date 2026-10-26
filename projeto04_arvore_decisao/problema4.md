@@ -1,0 +1,22 @@
+# Problema 4 – Classificação de Risco de Crédito Utilizando Árvores de Decisão
+
+*PAM0466 – Sistemas Inteligentes · 1ª Lista de Projetos*
+
+A concessão de crédito é uma das decisões mais sensíveis do sistema financeiro: aprovar um cliente inadimplente gera prejuízo direto, mas recusar um bom pagador significa perda de receita e exclusão financeira. Diferentemente de outras aplicações de machine learning, aqui não basta acertar, é preciso justificar a decisão. A LGPD (Lei 13.709/2018), em seu Art. 20, assegura ao titular o direito de solicitar a revisão de decisões tomadas exclusivamente com base em tratamento automatizado, o que torna modelos interpretáveis especialmente valiosos nesse domínio.
+
+É exatamente esse o apelo da árvore de decisão: o modelo aprendido pode ser lido como um conjunto de regras de produção, uma explicação que um analista, um cliente ou um auditor consegue compreender sem conhecimento de estatística. No Brasil, iniciativas como o Cadastro Positivo, o Open Finance e programas de microcrédito produtivo orientado como o Crediamigo, do Banco do Nordeste, dependem de avaliações de risco em larga escala, tornando o problema próximo da nossa realidade.
+
+Neste projeto, você é convidado a construir um modelo de classificação de solicitantes de crédito em duas categorias de risco (bom pagador e mau pagador) a partir de dados cadastrais e financeiros, utilizando uma Árvore de Decisão (Decision Tree).
+
+O projeto utiliza o arquivo german.data do dataset Statlog (German Credit Data) (https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data). O dataset foi doado por Hans Hofmann (Universidade de Hamburgo, Alemanha) em 1994 e reúne 1.000 solicitações de crédito reais de um banco alemão. Cada amostra é descrita por 20 atributos: 7 numéricos e 13 categóricos. Entre os atributos, temos duração do empréstimo em meses, valor solicitado, histórico de crédito, finalidade do empréstimo, saldo em conta corrente, tempo de emprego atual, idade, número de créditos ativos e existência de garantias. O rótulo indica se o cliente representou, de fato, um bom risco (700 amostras) ou um mau risco (300 amostras) de crédito.
+
+Observação: os atributos categóricos do arquivo german.data aparecem codificados (A11, A12, ...), com o significado de cada código descrito no arquivo german.doc. Alternativamente, a versão com rótulos legíveis pode ser obtida diretamente via: sklearn.datasets.fetch_openml(name='credit-g', version=1).
+
+Realize as seguintes tarefas utilizando o dataset fornecido:
+
+1. Preparação dos dados: carregue o dataset, identifique quais atributos são numéricos e quais são categóricos. Verifique se existe necessidade de codificação adequada às variáveis categóricas (one-hot encoding ou ordinal encoding). Avalie o balanceamento entre as classes e comente o impacto de um conjunto desbalanceado (70%/30%) sobre a interpretação da acurácia.
+2. Justifique por que a normalização dos atributos não é necessária para uma árvore de decisão.
+3. Divisão treino/teste: divida os dados em 80% para treino e 20% para teste, utilizando divisão estratificada para garantir que a proporção das duas classes seja mantida em ambos os conjuntos.
+4. Treinamento e controle de complexidade: treine árvores com diferentes valores de profundidade máxima (ex: 2, 3, 5, 7, 10 e sem limite), utilizando validação cruzada de 5 folds sobre o conjunto de treino. Plote, em um mesmo gráfico, a acurácia média de treino e a de validação em função da profundidade, e escolha o valor com melhor desempenho. O que acontece com o modelo para profundidades muito baixas e muito altas? Relacione sua resposta aos conceitos de underfitting e overfitting. Repita o experimento trocando o critério de divisão dos nós de Gini para entropia e comente se houve diferença relevante.
+5. Interpretação do modelo: usando a árvore com a profundidade escolhida, gere a visualização gráfica da árvore e a lista de importância dos atributos. Responda: quais são os três atributos mais determinantes para a classificação? Escreva, em linguagem natural, o conjunto de regras correspondente ao caminho que leva da raiz até a folha com maior número de amostras de mau risco.
+6. Avaliação do modelo: utilizando o conjunto de teste, calcule a matriz de confusão e as métricas de acurácia, precisão, recall e F1-score para cada classe. Responda: qual tipo de erro o modelo comete com mais frequência e por que ele é o mais grave nesta aplicação? Que ajuste você faria no treinamento para reduzi-lo?
